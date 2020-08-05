@@ -2,19 +2,18 @@
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
-
 using System.Text;
 
-namespace ConsoleApp1
+namespace ConsoleApp2
 {
     public class LogHandler
     {
-        private readonly string _pathLogDirectory = @"C:\Temp\MyServices\Logger\Logs"; //Directory will be created in the same location as the executable file.
+        private readonly string _pathLogDirectory = @"C:\Temp";//Directory will be created in the same location as the executable file.
         private string _pathLogFile;
         public Logger Logger { get; set; }
 
         public LogHandler()
-        {          
+        {
             CreateLogFile();
             CreateLogger();
         }

@@ -19,22 +19,22 @@ namespace ConsoleApp1
 
         public bool Start()
         {
-            //_logger.Information(">>Start called.");
-            Console.WriteLine(">>Start called.");
+            _logger.Information(">> Start called.");
+            //Console.WriteLine(">>Start called.");
 
             //Thread thread1 = new Thread(MainLogging);
             //thread1.IsBackground = true; 
             //thread1.Start();
 
             //_logger.Information(">> return true!.");
-            Console.WriteLine(">> return true!.");
+            //Console.WriteLine(">> return true!.");
             return true;
             
         }
 
         public void Stop()
         {
-            _logger.Information(">>Stop called.");
+            _logger.Information(">> Stop called.");
             _running = false;
         }
 

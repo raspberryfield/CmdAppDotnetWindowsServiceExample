@@ -16,17 +16,17 @@ namespace ConsoleApp1
             
             try
             {
-                var config = GetJsonConfig();
-                Console.WriteLine("json-config: " + config["key1"]);//Example how to access configurations.
+                //var config = GetJsonConfig();
+                //Console.WriteLine("json-config: " + config["key1"]);//Example how to access configurations.
 
                 //var messageService = new MessageService(logger);
                 var exitCode = HostFactory.Run(x =>
                 {
                     x.Service<MessageService>(s =>
                     {
-                        s.ConstructUsing(MessageService => new MessageService(logger));
-                        s.WhenStarted(MessageService => MessageService.Start());
-                        s.WhenStopped(MessageService => MessageService.Stop());
+                        s.ConstructUsing(messageService => new MessageService(logger));
+                        s.WhenStarted(messageService => messageService.Start());
+                        s.WhenStopped(messageService => messageService.Stop());
                     });
 
                     x.RunAsLocalSystem();
