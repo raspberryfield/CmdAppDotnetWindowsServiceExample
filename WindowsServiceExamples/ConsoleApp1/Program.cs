@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using Topshelf;
 
 namespace ConsoleApp1
 {
@@ -12,11 +13,33 @@ namespace ConsoleApp1
 
             var logger = new LogHandler().Logger;
             logger.Information(">> Application started.");
-
+            
             try
             {
                 var config = GetJsonConfig();
                 Console.WriteLine("json-config: " + config["key1"]);//Example how to access configurations.
+
+                //var messageService = new MessageService(logger);
+                var exitCode = HostFactory.Run(x =>
+                {
+                    x.Service<MessageService>(s =>
+                    {
+                        s.ConstructUsing(MessageService => new MessageService(logger));
+                        s.WhenStarted(MessageService => MessageService.Start());
+                        s.WhenStopped(MessageService => MessageService.Stop());
+                    });
+
+                    x.RunAsLocalSystem();
+
+                    x.SetServiceName("MyMessageService");
+                    x.SetDisplayName("My Message Service");
+                    x.SetDescription("This is my test.");
+
+                });
+
+                int exitCodeValue = (int)Convert.ChangeType(exitCode, exitCode.GetTypeCode());
+                Environment.ExitCode = exitCodeValue;
+
             }
             catch (Exception e){
                 logger.Error(e.ToString());

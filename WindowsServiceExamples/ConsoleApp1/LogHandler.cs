@@ -8,7 +8,7 @@ namespace ConsoleApp1
 {
     public class LogHandler
     {
-        private readonly string _pathLogDirectory = @".\Logs";
+        private readonly string _pathLogDirectory = @".\Logs";//Directory will be created in the same location as the executable file.
         private string _pathLogFile;
         public Logger Logger { get; set; }
 

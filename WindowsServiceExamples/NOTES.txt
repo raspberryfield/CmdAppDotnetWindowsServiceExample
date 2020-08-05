@@ -13,3 +13,14 @@ Install via nuget.
 * Microsoft.Extensions.Configuration.Json (read config file in json)
 
 * Serilog.Sinks.File
+
+
+Very important!
+https://stackoverflow.com/questions/39388014/topshelf-window-service-giving-error-1053-when-try-to-start-the-service
+
+https://github.com/Topshelf/Topshelf/issues/183
+
+https://appuals.com/how-to-fix-error-1053-the-service-did-not-respond-to-the-start-or-control-request-in-a-timely-fashion/
+
+Timer.complete event?
+Thread?
