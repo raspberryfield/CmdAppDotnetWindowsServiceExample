@@ -1,0 +1,15 @@
+
+https://www.youtube.com/watch?v=y64L-3HKuP0
+
+https://www.youtube.com/watch?v=FUa8RzWpJI0
+
+Topshelf:
+Install via nuget.
+
+#Nugets:
+* Topshelf (library for windows services.)
+
+* Microsoft.Extensions.Configuration
+* Microsoft.Extensions.Configuration.Json (read config file in json)
+
+* Serilog.Sinks.File
