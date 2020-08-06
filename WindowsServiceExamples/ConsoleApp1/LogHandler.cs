@@ -2,21 +2,28 @@
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace ConsoleApp1
 {
     public class LogHandler
     {
-        private static readonly string _pathLogDirectory = @"C:\Temp\MyServices\Logger\Logs"; //Directory will be created in the same location as the executable file.
+        private static readonly string _pathLogDirectory; //e.g. @"C:\Temp\MyServices\Logger\Logs"; Is this not valid path error 1053 may occur in service.
         private static string _pathLogFile;
         public static Logger Logger { get; set; }
 
         static LogHandler()
-        {          
+        {
+            _pathLogDirectory = SetPathToLogDirectory();
             CreateLogFile();
             Logger = CreateLogger();
+        }
+
+        private static string SetPathToLogDirectory()
+        {   //This should return the path of the executing assembly of this application, even if it is called from Service Manager in Windows.
+            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString() + "\\Logs"; //Directory.GetCurrentDirectory(), not alwyas works.
         }
 
         //Create a log file with a timestamp in the filename and a standard header in that file.
@@ -35,7 +42,7 @@ namespace ConsoleApp1
         {
             var logger = new LoggerConfiguration().WriteTo.File(_pathLogFile).CreateLogger();
             return logger;
-        }
+        }        
 
     }
 }

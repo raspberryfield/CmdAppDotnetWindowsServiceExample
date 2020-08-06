@@ -7,6 +7,7 @@ namespace ConsoleApp1
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             Console.WriteLine("ConsoleApp1 - Testing Topshelf!");
