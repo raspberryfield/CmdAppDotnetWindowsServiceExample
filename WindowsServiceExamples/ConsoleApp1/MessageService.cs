@@ -13,23 +13,22 @@ namespace ConsoleApp1
     {
         private static ILogger _logger;
         private static bool _running;
+        private static Thread _thread1;
+
         public MessageService(ILogger logger)
         {
-            _logger = logger;            
+            _logger = logger;
+
+            _thread1 = new Thread(MainLogging);
+            _thread1.IsBackground = true;
         }
 
         public bool Start()
         {
             _logger.Information(">> Start called.");
-            _logger.Information(Directory.GetCurrentDirectory().ToString());
-            //Console.WriteLine(">>Start called.");
+            _logger.Information(">> Thread started.");
+            _thread1.Start();
 
-            //Thread thread1 = new Thread(MainLogging);
-            //thread1.IsBackground = true; 
-            //thread1.Start();
-
-            //_logger.Information(">> return true!.");
-            //Console.WriteLine(">> return true!.");
             return true;
             
         }
@@ -38,6 +37,8 @@ namespace ConsoleApp1
         {
             _logger.Information(">> Stop called.");
             _running = false;
+            Thread.Sleep(1000); // Give time to thread to finish it work before calling stop.
+            
         }
 
         public static void MainLogging()
@@ -52,8 +53,8 @@ namespace ConsoleApp1
                 Console.WriteLine(">>Iteration: " + iterator);
                 iterator++;
             }
-            _logger.Information(">>After while loop in Start().");
-            Console.WriteLine(">>After while loop in Start().");
+            _logger.Information(">>After while loop in MainLogging().");
+            Console.WriteLine(">>After while loop in MainLogging().");
         }
 
     }
