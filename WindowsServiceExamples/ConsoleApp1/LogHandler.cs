@@ -9,18 +9,18 @@ namespace ConsoleApp1
 {
     public class LogHandler
     {
-        private readonly string _pathLogDirectory = @"C:\Temp\MyServices\Logger\Logs"; //Directory will be created in the same location as the executable file.
-        private string _pathLogFile;
-        public Logger Logger { get; set; }
+        private static readonly string _pathLogDirectory = @"C:\Temp\MyServices\Logger\Logs"; //Directory will be created in the same location as the executable file.
+        private static string _pathLogFile;
+        public static Logger Logger { get; set; }
 
-        public LogHandler()
+        static LogHandler()
         {          
             CreateLogFile();
-            CreateLogger();
+            Logger = CreateLogger();
         }
 
         //Create a log file with a timestamp in the filename and a standard header in that file.
-        private void CreateLogFile()
+        private static void CreateLogFile()
         {
             System.IO.Directory.CreateDirectory(_pathLogDirectory);
             var appStartDatetime = DateTime.Now.ToString("yyyyMMdd_HHmmss");//e.g. 2020-08-05 13:49 -> 20200805_1346
@@ -31,9 +31,10 @@ namespace ConsoleApp1
         }
 
         //Create a logger from Serilog.Core.Logger library.
-        private void CreateLogger()
+        private static Logger CreateLogger()
         {
-            Logger = new LoggerConfiguration().WriteTo.File(_pathLogFile).CreateLogger();
+            var logger = new LoggerConfiguration().WriteTo.File(_pathLogFile).CreateLogger();
+            return logger;
         }
 
     }

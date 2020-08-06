@@ -11,15 +11,14 @@ namespace ConsoleApp1
         {
             Console.WriteLine("ConsoleApp1 - Testing Topshelf!");
 
-            var logger = new LogHandler().Logger;
+            var logger = LogHandler.Logger;
             logger.Information(">> Application started.");
             
             try
             {
                 //var config = GetJsonConfig();
                 //Console.WriteLine("json-config: " + config["key1"]);//Example how to access configurations.
-
-                //var messageService = new MessageService(logger);
+                                
                 var exitCode = HostFactory.Run(x =>
                 {
                     x.Service<MessageService>(s =>
